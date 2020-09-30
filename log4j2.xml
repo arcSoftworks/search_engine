@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE log4j:configuration>
+<!-- Status determines which log4j log messages are included. -->
+<Configuration status="ERROR">
+	<Appenders>
+		<!-- We can make the console output more user-friendly if we want. -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%m %throwable{short.message}%n">
+			</PatternLayout>
+		</Console>
+
+		<!-- We can still keep details in a file log for debugging. -->
+		<File name="FileLog" fileName="debug.log" append="false">
+			<PatternLayout
+				pattern="[%sequenceNumber %-2level{length=2, lowerCase=false}] %class.%method %t: %m %throwable{3}%n">
+			</PatternLayout>
+		</File>
+	</Appenders>
+
+	<Loggers>
+		<!-- You can modify per-class logging levels if you want. -->
+		<Logger name="Project" additivity="true">
+			<AppenderRef ref="Console" level="WARN" />
+			<AppenderRef ref="FileLog" level="ALL" />
+		</Logger>
+
+		<!-- This is the configuration used by all other loggers. -->
+		<Root level="ALL">
+			<AppenderRef ref="Console" level="ALL" />
+		</Root>
+	</Loggers>
+</Configuration>
